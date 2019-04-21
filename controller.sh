@@ -72,5 +72,5 @@ sort -u -o $SORTLIST $SEDLIST
 ## Copy list to webserver ##
 ############################
 
-cp $SORTLIST $WEBSERPATH
-chown pi:www-data $WEBSERPATH
+sudo cp $SORTLIST $WEBSERPATH
+sudo chown pi:www-data $WEBSERPATH
