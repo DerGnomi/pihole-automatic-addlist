@@ -25,7 +25,8 @@ WEBSERPATH="$WEBSERDIR/$WEBSERPIHOLE"
 
 ## Options: TICK, NOCROSS, ALL
 
-LIST="TICK"
+LIST="NOCROSS"
+SPECIALLIST=true #Coinblocker
 
 if [[ $LIST == "TICK" ]]; then
   curl "https://v.firebog.net/hosts/lists.php?type=tick" -o $LINKLIST
@@ -60,6 +61,9 @@ for i in $(cat $LINKLIST)
 do
   curl $i >> $ALLLIST 
 done
+if [[ $SPECIALLIST == true ]];then 
+  curl https://zerodot1.gitlab.io/CoinBlockerLists/hosts >> $ALLLIST
+fi
 
 ## format the list - rule out all "127.0.0.1", "0.0.0.0", "0 ", "#IBM Silverpop" 
 ## Strip of all escape sequenzes

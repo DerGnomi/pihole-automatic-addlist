@@ -22,7 +22,13 @@ http://localhost/hosts/main.txt
 
 ## Settings
 
+### GENERAL
+
 In the controller.sh script you can chose whether you want to take the ticked or non crossed or all lists
+
+### COINMINERLIST
+
+If you dont want to cancel out the coinblocker list, then set the var "SPECIALLIST" to false
 
 ## How does it work
 
