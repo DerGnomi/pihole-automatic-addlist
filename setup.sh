@@ -13,7 +13,7 @@ while true; do
       printf "\nWhat time to create the list?\n"
       read -p "Hour [0-23]> " hour
       read -p "Minute [0-59]> " minute
-      sudo crontab -l > /tmp/crontab.tmp
+      crontab -l > /tmp/crontab.tmp
       sed -i '/^*pihole -g*$/d' /tmp/crontab.tmp
       echo "$minute $hour * * * $SCRIPTPATH/controller.sh && pihole -g" >> /tmp/crontab.tmp
       crontab -u pi /tmp/crontab.tmp
