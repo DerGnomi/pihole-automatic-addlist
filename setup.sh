@@ -16,7 +16,11 @@ while true; do
       crontab -l > /tmp/crontab.tmp
       sed -i '/^*pihole -g*$/d' /tmp/crontab.tmp
       echo "$minute $hour * * * $SCRIPTPATH/controller.sh && pihole -g" >> /tmp/crontab.tmp
-      crontab -u pi /tmp/crontab.tmp
+      if [[ $USER != 'root' ]]; then 
+        crontab -u pi /tmp/crontab.tmp
+      else
+        crontab -u root /tmp/crontab.tmp
+      fi
       rm -f /tmp/crontab.tmp
       break;;
     [Nn]* )

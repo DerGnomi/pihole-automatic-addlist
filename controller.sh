@@ -12,7 +12,7 @@ SORTLIST="$LISTDIR/sortedlist.txt"
 ## Webserver root dir
 WEBSERDIR="/var/www/html"
 ## Files stored
-WEBSERPIHOLE="hosts/main.txt"
+WEBSERPIHOLE="main.txt"
 ## FULL PATH
 WEBSERPATH="$WEBSERDIR/$WEBSERPIHOLE"
 
@@ -27,6 +27,7 @@ WEBSERPATH="$WEBSERDIR/$WEBSERPIHOLE"
 
 LIST="NOCROSS"
 SPECIALLIST=true #Coinblocker
+TRACKER=true
 
 if [[ $LIST == "TICK" ]]; then
   curl "https://v.firebog.net/hosts/lists.php?type=tick" -o $LINKLIST
@@ -65,6 +66,10 @@ if [[ $SPECIALLIST == true ]];then
   curl https://zerodot1.gitlab.io/CoinBlockerLists/hosts >> $ALLLIST
 fi
 
+if [[ $TRACKER == true ]]; then
+  curl https://raw.githubusercontent.com/lightswitch05/hosts/master/ads-and-tracking.txt >> $ALLLIST
+fi
+
 ## format the list - rule out all "127.0.0.1", "0.0.0.0", "0 ", "#IBM Silverpop" 
 ## Strip of all escape sequenzes
 sed -e '/^127.0.0.1/d' $ALLLIST | sed -e '/^0.0.0.0/d' | sed -e '/#IBM Silverpop/d' | sed -e '/^0 /d' | sed 's/\r$//' | grep -v ^$ | grep -v "^#" > $SEDLIST
@@ -77,4 +82,4 @@ sort -u -o $SORTLIST $SEDLIST
 ############################
 
 sudo cp $SORTLIST $WEBSERPATH
-sudo chown pi:www-data $WEBSERPATH
+sudo chown www-data:www-data $WEBSERPATH
